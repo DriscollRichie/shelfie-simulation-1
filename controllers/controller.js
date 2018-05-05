@@ -8,5 +8,21 @@ module.exports = {
     let db = req.app.get("db");
     let { name, price, image } = req.body;
     db.create_product([name, price, image]).then(ok => res.sendStatus(200));
+  },
+
+  deleteProduct: (req, res) => {
+    const db = req.app.get("db");
+
+    const { id } = req.params;
+
+    db
+      .delete_product({
+        id
+      })
+      .then(data => {
+        db.get_inventory().then(data => {
+          res.status(200).send(data);
+        });
+      });
   }
 };

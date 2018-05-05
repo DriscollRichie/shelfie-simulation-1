@@ -19,5 +19,8 @@
     "eject": "react-scripts eject"
   },
   "main": "index.js",
-  "proxy": "http://localhost:3001"
+  "proxy": "http://localhost:3001",
+  "nodemonConfig": {
+    "ignore": ["src/*"]
+  }
 }

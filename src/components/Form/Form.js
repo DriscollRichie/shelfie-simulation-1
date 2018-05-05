@@ -7,7 +7,8 @@ export default class Form extends Component {
     this.state = {
       nameInput: '',
       priceInput: 0,
-      imageInput: ''
+      imageInput: '',
+      selectedProduct: null
     }
     this.clearInputs = this.clearInputs.bind(this)
   }
@@ -28,8 +29,14 @@ export default class Form extends Component {
     this.setState({nameInput: '', priceInput: 0, imageInput: ''})
   }
 
-  postProduct(name, price, product) {
-    axios.post('/api/product', {name, price, product}).then(res => {
+  componentDidUpdate(oldProps) {
+    if (oldProps.selectedProduct  !== this.state.selectedProduct) {
+      
+    }
+  }
+
+  postProduct(name, price, image) {
+    axios.post('/api/product', {name, price, image}).then(res => {
       this.props.getInventoryFn()
       this.clearInputs()
     })
@@ -38,7 +45,6 @@ export default class Form extends Component {
   render() {
     return(
       <div>
-        <h1>I am Form</h1>
         <input placeholder='Product Name' onChange={(e) => this.handleNameChange(e.target.value)} value={this.state.nameInput}/>
         <input placeholder='Price' onChange={(e) => this.handlePriceChange(e.target.value)} value={this.state.priceInput}/>
         <input placeholder='Image URL' onChange={(e) => this.handleImageChange(e.target.value)} value={this.state.imageInput}/>
